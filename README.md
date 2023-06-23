@@ -2,8 +2,7 @@
 Library for interacting with ICRC standard tokens on ICP
 
 <h3> Adding as dependency </h3>
-```
-[dependencies]
+```rust
 icrc = { git = "https://github.com/pramitgaha/icrc.git" }
 ```
 
