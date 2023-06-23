@@ -78,7 +78,7 @@ pub trait Icrc1: TokenPrincipalFetcher{
         ic_cdk::call(token, "icrc1_decimals", ()).await
     }
 
-    async fn icrc1_balance(&self, account: Account) -> CallResult<(Nat,)>{
+    async fn icrc1_balance_of(&self, account: Account) -> CallResult<(Nat,)>{
         let token = <Self as TokenPrincipalFetcher>::token_principal(&self);
         ic_cdk::call(token, "icrc1_balance_of", (account,)).await
     }
