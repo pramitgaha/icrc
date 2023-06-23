@@ -1,7 +1,13 @@
 # icrc
 Library for interacting with ICRC standard tokens on ICP
 
-# Example
+<h3> Adding as dependency </h3>
+```toml
+[dependencies]
+icrc = { git = "https://github.com/pramitgaha/icrc.git" }
+```
+
+<h3> Example </h3>
 
 - Using Icrc1 standard token
 ```rust
