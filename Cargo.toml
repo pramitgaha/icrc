@@ -12,3 +12,4 @@ async-trait = "0.1.68"
 candid = "0.8.4"
 ic-cdk = "0.9.2"
 serde = "1.0.164"
+icrc-ledger-types = { git = "https://github.com/dfinity/ic" }

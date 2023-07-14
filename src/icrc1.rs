@@ -1,61 +1,7 @@
-use candid::{Principal, Nat, CandidType,};
+use candid::{Principal, Nat};
 use ic_cdk::api::call::CallResult;
 use async_trait::async_trait;
-use serde::Deserialize;
-
-pub type Subaccount = [u8; 32];
-
-#[derive(CandidType, Deserialize, Clone, Copy)]
-pub struct Account{
-    pub owner: Principal,
-    pub subaccount: Option<Subaccount>
-}
-
-impl Account{
-    pub fn from_subaccount(subaccount: Option<Subaccount>) -> Self{
-        Self { owner: ic_cdk::id(), subaccount }
-    }
-
-    pub fn default(principal: Principal) -> Self{
-        Self { owner: principal, subaccount: Some([0u8; 32]) }
-    }
-}
-
-#[derive(CandidType, Deserialize)]
-pub struct TransferArg {
-  pub to: Account,
-  pub fee: Option<Nat>,
-  pub memo: Option<Vec<u8>>,
-  pub from_subaccount: Option<Subaccount>,
-  pub created_at_time: Option<u64>,
-  pub amount: Nat,
-}
-
-impl TransferArg{
-    pub fn new(to: Account, fee: Nat, from_subaccount: Option<Subaccount>, amount: Nat) -> Self{
-        Self{
-            to,
-            fee: Some(fee.clone()),
-            memo: None,
-            from_subaccount,
-            created_at_time: None,
-            amount: amount - fee,
-        }
-    }
-}
-
-#[derive(CandidType, Deserialize)]
-pub enum TransferError {
-  GenericError{ message: String, error_code: Nat },
-  TemporarilyUnavailable,
-  BadBurn{ min_burn_amount: Nat },
-  Duplicate{ duplicate_of: Nat },
-  BadFee{ expected_fee: Nat },
-  CreatedInFuture{ ledger_time: u64 },
-  TooOld,
-  InsufficientFunds{ balance: Nat },
-}
-
+use icrc_ledger_types::icrc1::{account::Account, transfer::{TransferArg, TransferError}};
 
 pub trait TokenPrincipalFetcher{
     fn token_principal(&self) -> Principal;
