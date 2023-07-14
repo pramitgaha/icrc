@@ -1,7 +1,8 @@
 use candid::{Principal, Nat};
 use ic_cdk::api::call::CallResult;
 use async_trait::async_trait;
-use icrc_ledger_types::icrc1::{account::Account, transfer::{TransferArg, TransferError}};
+use icrc_ledger_types::icrc1::transfer::{TransferArg, TransferError};
+use crate::Account;
 
 pub trait TokenPrincipalFetcher{
     fn token_principal(&self) -> Principal;
